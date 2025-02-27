@@ -1,7 +1,11 @@
 import axios from "axios";
 
-export async function getTasks() {
-  const res = await axios.get("http://localhost:8000/tasks");
+export async function getTasks({ pageParam }) {
+  const res = await axios.get(
+    `http://localhost:8000/tasks?_page=${pageParam}&_limit=4`
+  );
+
+  // const res= await axios.get(`https://jsonplaceholder.typicode.com/posts?_page=${pageParam}&_limit=10`)
 
   return res.data;
 }
@@ -25,7 +29,7 @@ export async function createTask(data) {
   }
 }
 
-export async function updateTask(data){
+export async function updateTask(data) {
   try {
     const res = await axios.put(`http://localhost:8000/tasks/${data.id}`, data);
     return JSON.stringify(res.data);
@@ -34,7 +38,7 @@ export async function updateTask(data){
   }
 }
 
-export async function completeTask(data){
+export async function completeTask(data) {
   try {
     const res = await axios.put(`http://localhost:8000/tasks/${data.id}`, data);
     return JSON.stringify(res.data);
